@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "ViewController.OnNumerButton_Pressed(_:):ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "calculationsText.prefix(1)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.percentage():ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "calculationsLabel.text">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
