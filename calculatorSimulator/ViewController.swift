@@ -1,10 +1,10 @@
 /**
- * Assignment 2
+ * Assignment 3
  * File Name:    ViewController.swift
  * Author:         Quoc Phong Ngo
  * Student ID:   301148406
- * Version:        2.0
- * Date Modified:   September 30th, 2021
+ * Version:        3.0
+ * Date Created:   October 19th, 2021
  */
 
 import UIKit
@@ -15,21 +15,115 @@ class ViewController: UIViewController {
     @IBOutlet weak var resultLabel: UILabel!
     var calculationsText:String = ""
     
+    @IBOutlet weak var btnRad: UIButton!
+    @IBOutlet weak var btnCosh: UIButton!
+    @IBOutlet weak var btnSinh: UIButton!
+    @IBOutlet weak var btnTanh: UIButton!
+    @IBOutlet weak var btnPi: UIButton!
+    @IBOutlet weak var btnRand: UIButton!
+    @IBOutlet weak var btnXFactorial: UIButton!
+    @IBOutlet weak var btnSin: UIButton!
+    @IBOutlet weak var btnCos: UIButton!
+    @IBOutlet weak var btnTan: UIButton!
+    @IBOutlet weak var btnE: UIButton!
+    @IBOutlet weak var btnEe: UIButton!
+    @IBOutlet weak var btn1divx: UIButton!
+    @IBOutlet weak var btn2sqrtx: UIButton!
+    @IBOutlet weak var btn3sqrtx: UIButton!
+    @IBOutlet weak var btnLn: UIButton!
+    @IBOutlet weak var btnySqrtx: UIButton!
+    @IBOutlet weak var btnlog10: UIButton!
+    @IBOutlet weak var btn2nd: UIButton!
+    @IBOutlet weak var btnX2: UIButton!
+    @IBOutlet weak var btnX3: UIButton!
+    @IBOutlet weak var btnXy: UIButton!
+    @IBOutlet weak var btnEx: UIButton!
+    @IBOutlet weak var btn10x: UIButton!
+    
+    @IBOutlet weak var btnParenOpen: UIButton!
+    @IBOutlet weak var btnParenClose: UIButton!
+    @IBOutlet weak var btnMC: UIButton!
+    @IBOutlet weak var btnMPlus: UIButton!
+    @IBOutlet weak var btnMMinus: UIButton!
+    @IBOutlet weak var btnMR: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         // clear all labels
         clearAll()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { (UIViewControllerTransitionCoordinatorContext) -> Void in
+
+            let orient = UIApplication.shared.statusBarOrientation
+                switch orient {
+                case .portrait:
+                    print("Portrait")
+                    self.applyPortraitConstraint()
+                    break
+                    // Do something
+                default:
+                    print("LandScape")
+                    // Do something else
+//                    self.applyLandScapeConstraint()
+                    break
+                }
+                }, completion: { (UIViewControllerTransitionCoordinatorContext) -> Void in
+
+            })
+        super.viewWillTransition(to: size, with: coordinator)
+
+    }
+    
+    private func applyPortraitConstraint()
+    {
+        // 1st row
+        self.btnMR.removeFromSuperview()
+        self.btnMC.removeFromSuperview()
+        self.btnMPlus.removeFromSuperview()
+        self.btnMMinus.removeFromSuperview()
+        self.btnParenOpen.removeFromSuperview()
+        self.btnParenClose.removeFromSuperview()
+        // 2nd row
+        self.btn10x.removeFromSuperview()
+        self.btnEx.removeFromSuperview()
+        self.btnXy.removeFromSuperview()
+        self.btnX3.removeFromSuperview()
+        self.btnX2.removeFromSuperview()
+        self.btn2nd.removeFromSuperview()
+        // 3rd row
+        self.btnlog10.removeFromSuperview()
+        self.btnLn.removeFromSuperview()
+        self.btnySqrtx.removeFromSuperview()
+        self.btn3sqrtx.removeFromSuperview()
+        self.btn2sqrtx.removeFromSuperview()
+        self.btn1divx.removeFromSuperview()
+        // 4th row
+        self.btnEe.removeFromSuperview()
+        self.btnE.removeFromSuperview()
+        self.btnTan.removeFromSuperview()
+        self.btnCos.removeFromSuperview()
+        self.btnSin.removeFromSuperview()
+        self.btnXFactorial.removeFromSuperview()
+        // 5th row
+        self.btnRad.removeFromSuperview()
+        self.btnSinh.removeFromSuperview()
+        self.btnCosh.removeFromSuperview()
+        self.btnTanh.removeFromSuperview()
+        self.btnPi.removeFromSuperview()
+        self.btnRand.removeFromSuperview()
+    }
+    
+        
     /**
      * Clear all text on two labels
      * Handling event for AC button
      */
     private func clearAll()
     {
-        calculationsText = ""
-        calculationsLabel.text = ""
-        resultLabel.text = "0"
+//        calculationsText = ""
+//        calculationsLabel.text = ""
+//        resultLabel.text = "0"
     }
     
     /**
