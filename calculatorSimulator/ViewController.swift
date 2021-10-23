@@ -12,9 +12,9 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var calculationsLabel: UILabel!
-    @IBOutlet weak var resultLabel: UILabel!
     var calculationsText:String = ""
     
+    @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var btnRad: UIButton!
     @IBOutlet weak var btnCosh: UIButton!
     @IBOutlet weak var btnSinh: UIButton!
@@ -48,6 +48,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnMR: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.applyPortraitConstraint()
         // clear all labels
         clearAll()
     }
@@ -58,14 +59,10 @@ class ViewController: UIViewController {
             let orient = UIApplication.shared.statusBarOrientation
                 switch orient {
                 case .portrait:
-                    print("Portrait")
                     self.applyPortraitConstraint()
                     break
-                    // Do something
                 default:
-                    print("LandScape")
-                    // Do something else
-//                    self.applyLandScapeConstraint()
+                    self.applyLandScapeConstraint()
                     break
                 }
                 }, completion: { (UIViewControllerTransitionCoordinatorContext) -> Void in
@@ -75,43 +72,87 @@ class ViewController: UIViewController {
 
     }
     
+    /**
+     * Landscape mode
+     */
+    private func applyLandScapeConstraint()
+    {
+        self.btnMR.isHidden = false
+        self.btnMC.isHidden = false
+        self.btnMPlus.isHidden = false
+        self.btnMMinus.isHidden = false
+        self.btnParenOpen.isHidden = false
+        self.btnParenClose.isHidden = false
+        // 2nd row
+        self.btn10x.isHidden = false
+        self.btnEx.isHidden = false
+        self.btnXy.isHidden = false
+        self.btnX3.isHidden = false
+        self.btnX2.isHidden = false
+        self.btn2nd.isHidden = false
+        // 3rd row
+        self.btnlog10.isHidden = false
+        self.btnLn.isHidden = false
+        self.btnySqrtx.isHidden = false
+        self.btn3sqrtx.isHidden = false
+        self.btn2sqrtx.isHidden = false
+        self.btn1divx.isHidden = false
+        // 4th row
+        self.btnEe.isHidden = false
+        self.btnE.isHidden = false
+        self.btnTan.isHidden = false
+        self.btnCos.isHidden = false
+        self.btnSin.isHidden = false
+        self.btnXFactorial.isHidden = false
+        // 5th row
+        self.btnRad.isHidden = false
+        self.btnSinh.isHidden = false
+        self.btnCosh.isHidden = false
+        self.btnTanh.isHidden = false
+        self.btnPi.isHidden = false
+        self.btnRand.isHidden = false
+    }
+    
+    /*
+     * Portrait mode
+     */
     private func applyPortraitConstraint()
     {
         // 1st row
-        self.btnMR.removeFromSuperview()
-        self.btnMC.removeFromSuperview()
-        self.btnMPlus.removeFromSuperview()
-        self.btnMMinus.removeFromSuperview()
-        self.btnParenOpen.removeFromSuperview()
-        self.btnParenClose.removeFromSuperview()
+        self.btnMR.isHidden = true
+        self.btnMC.isHidden = true
+        self.btnMPlus.isHidden = true
+        self.btnMMinus.isHidden = true
+        self.btnParenOpen.isHidden = true
+        self.btnParenClose.isHidden = true
         // 2nd row
-        self.btn10x.removeFromSuperview()
-        self.btnEx.removeFromSuperview()
-        self.btnXy.removeFromSuperview()
-        self.btnX3.removeFromSuperview()
-        self.btnX2.removeFromSuperview()
-        self.btn2nd.removeFromSuperview()
+        self.btn10x.isHidden = true
+        self.btnEx.isHidden = true
+        self.btnXy.isHidden = true
+        self.btnX3.isHidden = true
+        self.btnX2.isHidden = true
+        self.btn2nd.isHidden = true
         // 3rd row
-        self.btnlog10.removeFromSuperview()
-        self.btnLn.removeFromSuperview()
-        self.btnySqrtx.removeFromSuperview()
-        self.btn3sqrtx.removeFromSuperview()
-        self.btn2sqrtx.removeFromSuperview()
-        self.btn1divx.removeFromSuperview()
+        self.btnlog10.isHidden = true
+        self.btnLn.isHidden = true
+        self.btnySqrtx.isHidden = true
+        self.btn3sqrtx.isHidden = true
+        self.btn2sqrtx.isHidden = true
+        self.btn1divx.isHidden = true
         // 4th row
-        self.btnEe.removeFromSuperview()
-        self.btnE.removeFromSuperview()
-        self.btnTan.removeFromSuperview()
-        self.btnCos.removeFromSuperview()
-        self.btnSin.removeFromSuperview()
-        self.btnXFactorial.removeFromSuperview()
+        self.btnEe.isHidden = true
+        self.btnE.isHidden = true
+        self.btnTan.isHidden = true
+        self.btnCos.isHidden = true
+        self.btnSin.isHidden = true
+        self.btnXFactorial.isHidden = true
         // 5th row
-        self.btnRad.removeFromSuperview()
-        self.btnSinh.removeFromSuperview()
-        self.btnCosh.removeFromSuperview()
-        self.btnTanh.removeFromSuperview()
-        self.btnPi.removeFromSuperview()
-        self.btnRand.removeFromSuperview()
+        self.btnRad.isHidden = true
+        self.btnSinh.isHidden = true
+        self.btnCosh.isHidden = true
+        self.btnTanh.isHidden = true
+        self.btnPi.isHidden = true
+        self.btnRand.isHidden = true
     }
     
         
@@ -121,9 +162,8 @@ class ViewController: UIViewController {
      */
     private func clearAll()
     {
-//        calculationsText = ""
-//        calculationsLabel.text = ""
-//        resultLabel.text = "0"
+        calculationsText = ""
+        resultLabel.text = "0"
     }
     
     /**
@@ -134,7 +174,7 @@ class ViewController: UIViewController {
         if(!calculationsText.isEmpty)
         {
             calculationsText.removeLast()
-            calculationsLabel.text = calculationsText
+            resultLabel.text = calculationsText
         }
     }
     
@@ -145,8 +185,8 @@ class ViewController: UIViewController {
     {
         if(!calculationsText.isEmpty && Double(calculationsText) != nil)
         {
-            calculationsLabel.text = formatResult(result: Double(calculationsText)! / 100.0)
-            calculationsText = calculationsLabel.text!
+            resultLabel.text = formatResult(result: Double(calculationsText)! / 100.0)
+            calculationsText = resultLabel.text!
         }
     }
     
@@ -183,7 +223,7 @@ class ViewController: UIViewController {
                 }
             }
             calculationsText = newCalculationText
-            calculationsLabel.text = calculationsText
+            resultLabel.text = calculationsText
         }
     }
 
@@ -240,7 +280,7 @@ class ViewController: UIViewController {
             calculationsText.append(button_text)
                 
         }
-        calculationsLabel.text = calculationsText
+        resultLabel.text = calculationsText
     }
     
     /**
@@ -279,37 +319,117 @@ class ViewController: UIViewController {
         }
     }
     
+    fileprivate func multiplyCalculation(_ string: String) -> Double {
+        // containing multiply (*)
+        let splitStringMultiply = string.components(separatedBy: "x")
+        var tempMultiplyResult = 1.0
+        var dividedNumber = 1.0
+        for element in splitStringMultiply
+        {
+            if(element.contains("/")) {
+                let splitStringDivide = element.components(separatedBy: "/")
+                for (index, divideElement) in splitStringDivide.enumerated()
+                {
+                    if(index == 0) {
+                        tempMultiplyResult = tempMultiplyResult * Double(divideElement)!
+                    } else {
+                        dividedNumber = Double(divideElement)!
+                    }
+                }
+                //tempMultiplyResult = tempMultiplyResult / Double(dividedNumber)!
+                tempMultiplyResult = tempMultiplyResult / Double(dividedNumber)
+            } else {
+                tempMultiplyResult = tempMultiplyResult * Double(element)!
+            }
+        }
+        
+        return tempMultiplyResult
+    }
+    
+    fileprivate func devideCalculation(_ element: String) -> Double {
+        let splitStringDivide = element.components(separatedBy: "/")
+        var tempDevideResult = 0.0
+        
+        for (i, e) in splitStringDivide.enumerated()
+        {
+            if(i == 0)
+            {
+                tempDevideResult += Double(e)!
+            } else {
+                tempDevideResult = tempDevideResult / Double(e)!
+            }
+        }
+        
+        return tempDevideResult
+    }
+    
     /**
      *   compound calculation in a series
      */
     private func calculate() -> Double
     {
-        // get all matches for complex calculation
-        let allMatches = matchesRegex(for: "([-|+|x|/]?([0-9]+\\.?[0-9]*)+)", in: calculationsText)
-        // loop array of match
-        // Example: 1+3-2 -> ["1","+3","-2"]
         var total = 0.0
-        for match in allMatches
+        let splitString = calculationsText.components(separatedBy: "+")
+        if(!splitString.isEmpty)
         {
-            switch match.prefix(1) {
-            case "+":
-                total += Double(String(match.dropFirst()))!
-                break
-            case "-":
-                total += Double(String(match))!
-                break
-            case "x":
-                total *= Double(String(match.dropFirst()))!
-                break
-            case "/":
-                total /= Double(String(match.dropFirst()))!
-                break
-            default:
-                total += Double(match)!
-                break
+            for string in splitString
+            {
+                print(string)
+                // containing minus (-)
+                if(string.prefix(1) == "-")
+                {
+                    total += Double(string)!
+                }
+                else {
+                    if(string.contains("-"))
+                    {
+                        let splitStringMinus = string.components(separatedBy: "-")
+                        for (index, element) in splitStringMinus.enumerated()
+                        {
+                            print(element)
+                            if(index == 0) {
+                                // multiply (*)
+                                if(element.contains("x")) {
+                                    let splitStringMultiply = element.components(separatedBy: "x")
+                                    var tempMultiplyResult = 1.0
+                                    for element1 in splitStringMultiply
+                                    {
+                                        tempMultiplyResult = tempMultiplyResult * Double(element1)!
+                                    }
+                                    total += tempMultiplyResult
+                                }
+                                // divide (/)
+                                else if(element.contains("/")) {
+                                    total += devideCalculation(element)
+                                }
+                                else
+                                {
+                                    // minus (-)
+                                    total += Double(element)!
+                                }
+                            } else {
+                                if(element.contains("x")) {
+                                    total -= multiplyCalculation(element)
+                                } else if(element.contains("/")) {
+                                    total -= devideCalculation(element)
+                                }
+                                else {
+                                    total -= Double(element)!
+                                }
+                            }
+                        }
+                    } else if(string.contains("x")) {
+                        total += multiplyCalculation(string)
+                    } else if(string.contains("/")) {
+                        // containing divide (/)
+                        total += devideCalculation(string)
+                    } else {
+                        total += Double(string)!
+                    }
+                }
             }
         }
-      
+        
         return total
     }
     
@@ -325,28 +445,28 @@ class ViewController: UIViewController {
             {
                 calculationsText.append(button_text)
             }
-            calculationsLabel.text = calculationsText
+            resultLabel.text = calculationsText
             break
         case "-":
             if(calculationsText.suffix(1) != "-")
             {
                 calculationsText.append(button_text)
             }
-            calculationsLabel.text = calculationsText
+            resultLabel.text = calculationsText
             break
         case "x":
             if(calculationsText.suffix(1) != "x")
             {
                 calculationsText.append(button_text)
             }
-            calculationsLabel.text = calculationsText
+            resultLabel.text = calculationsText
             break
         case "/":
             if(calculationsText.suffix(1) != "/")
             {
                 calculationsText.append(button_text)
             }
-            calculationsLabel.text = calculationsText
+            resultLabel.text = calculationsText
             break
         case "=":
             if(!calculationsText.isEmpty)
