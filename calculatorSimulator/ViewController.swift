@@ -13,6 +13,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var calculationsLabel: UILabel!
     var calculationsText:String = ""
+    var memoryAdd:Double = 0.0
     
     @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var btnRad: UIButton!
@@ -374,7 +375,6 @@ class ViewController: UIViewController {
         {
             for string in splitString
             {
-                print(string)
                 // containing minus (-)
                 if(string.prefix(1) == "-")
                 {
@@ -386,7 +386,6 @@ class ViewController: UIViewController {
                         let splitStringMinus = string.components(separatedBy: "-")
                         for (index, element) in splitStringMinus.enumerated()
                         {
-                            print(element)
                             if(index == 0) {
                                 // multiply (*)
                                 if(element.contains("x")) {
@@ -440,6 +439,17 @@ class ViewController: UIViewController {
         let button_text = sender.titleLabel!.text!
         switch button_text
         {
+        case "mr":
+            if(!calculationsText.contains(formatResult(result: memoryAdd))) {
+                calculationsText.append(formatResult(result: memoryAdd))
+                resultLabel.text = calculationsText
+            }
+        break
+            
+        case "m+":
+            memoryAdd += Double(calculationsText)!
+        break
+            
         case "+":
             if(calculationsText.suffix(1) != "+")
             {
@@ -471,14 +481,160 @@ class ViewController: UIViewController {
         case "=":
             if(!calculationsText.isEmpty)
             {
-                let result = calculate()
-                resultLabel.text = formatResult(result: result)
-                //resultLabel.text = "\(result)"
-                calculationsText = ""
+                if(calculationsText.contains("^")) {
+                    // caclculate x^y
+                    let rsXBaseY = calculateXbaseY()
+                    resultLabel.text = formatResult(result: rsXBaseY)
+                    calculationsText = resultLabel.text!
+                } else {
+                    let result = calculate()
+                    resultLabel.text = formatResult(result: result)
+                    //resultLabel.text = "\(result)"
+                    calculationsText = resultLabel.text!
+                }
             }
             break
         default:
             break;
+        }
+    }
+    
+    /*
+     * calculate x^y
+     */
+    private func calculateXbaseY() -> Double
+    {
+        var result = 1.0
+        let splitString = calculationsText.components(separatedBy: "^")
+
+        let y = Int(splitString[1])!
+        for _ in 1...y
+        {
+            result *= Double(splitString[0])!
+        }
+        
+        return result
+    }
+    
+    @IBAction func onAdvancedButton_Pressed(_ sender: UIButton) {
+        let button_text = sender.titleLabel!.text!
+        switch button_text
+        {
+        case "x^2":
+            resultLabel.text = formatResult(result: Double(calculationsText)! * Double(calculationsText)!)
+            calculationsText = resultLabel.text!
+        break
+                
+        case "x^3":
+            resultLabel.text = formatResult(result: Double(calculationsText)! * Double(calculationsText)! * Double(calculationsText)!)
+            calculationsText = resultLabel.text!
+        break
+        
+        case "10^x":
+            let base = Int(calculationsText)!
+            var result = 1.0
+            if(base > 0) {
+                for _ in 1...base {
+                    result = result * 10.0
+                }
+                resultLabel.text = formatResult(result: result)
+                calculationsText = resultLabel.text!
+            }
+            
+        break
+            
+        case "x^y":
+            resultLabel.text?.append("^")// = formatResult(result: Double(calculationsText)! * Double(calculationsText)!)
+            calculationsText = resultLabel.text!
+        break
+            
+        case "x!":
+            let number = Int(calculationsText)!
+            var result = 1.0
+            if(number == 0) {
+                resultLabel.text = formatResult(result: result)
+            } else {
+                for n in 1...number {
+                    result = result * Double(n)
+                }
+                resultLabel.text = formatResult(result: result)
+            }
+            calculationsText = resultLabel.text!
+        break
+        
+        case "1/x":
+            let dividedNumber = Double(calculationsText)!
+            resultLabel.text = formatResult(result: 1/dividedNumber)
+            calculationsText = resultLabel.text!
+        break
+            
+        case "√x":
+            let number = Double(calculationsText)!
+            resultLabel.text = formatResult(result: sqrt(number))
+            calculationsText = resultLabel.text!
+        break
+            
+        case "log10":
+            let number = Double(calculationsText)!
+            resultLabel.text = formatResult(result: log10(number))
+            calculationsText = resultLabel.text!
+        break
+        
+        case "sin":
+            let number = Double(calculationsText)!
+            let sinus = sin(number * Double.pi / 180)
+            resultLabel.text = formatResult(result: sinus)
+            calculationsText = resultLabel.text!
+        break
+            
+        case "sinh":
+            let number = Double(calculationsText)!
+            let sinhus = sinh(number)
+            resultLabel.text = formatResult(result: sinhus)
+            calculationsText = resultLabel.text!
+        break
+            
+        case "cos":
+            let number = Double(calculationsText)!
+            let cosinus = cos(number * Double.pi / 180)
+            resultLabel.text = formatResult(result: cosinus)
+            calculationsText = resultLabel.text!
+        break
+            
+        case "cosh":
+            let number = Double(calculationsText)!
+            let coshinus = cosh(number)
+            resultLabel.text = formatResult(result: coshinus)
+            calculationsText = resultLabel.text!
+        break
+            
+        case "tan":
+            let number = Double(calculationsText)!
+            let tangent = tan(number * Double.pi / 180)
+            resultLabel.text = formatResult(result: tangent)
+            calculationsText = resultLabel.text!
+        break
+            
+        case "tanh":
+            let number = Double(calculationsText)!
+            let tanhgent = tanh(number)
+            resultLabel.text = formatResult(result: tanhgent)
+            calculationsText = resultLabel.text!
+        break
+            
+        case "Rand":
+            let randomDouble = Double.random(in: 0...1)
+            resultLabel.text = formatResult(result: randomDouble)
+            calculationsText = resultLabel.text!
+        break
+            
+        case "π":
+            resultLabel.text = formatResult(result: Double.pi)
+            calculationsText = resultLabel.text!
+        break
+            
+        default:
+        break
         }
     }
 }
