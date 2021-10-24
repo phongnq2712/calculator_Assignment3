@@ -285,26 +285,6 @@ class ViewController: UIViewController {
     }
     
     /**
-     * Get matching pattern regex for complex calculations
-     */
-    func matchesRegex(for regex: String, in text: String) -> [String] {
-        do {
-            let regex = try NSRegularExpression(pattern: regex,options:.caseInsensitive)
-            let results = regex.matches(in: text,
-                                        range: NSRange(location: 0, length: text.count))
-            let finalResult = results.map {
-                (text as NSString).substring(with: $0.range)
-            }
-            
-            return finalResult
-        } catch let error {
-            print("error regex: \(error.localizedDescription)")
-            
-            return []
-        }
-    }
-    
-    /**
      * Format for the result label
      * Floating point numbers should be accurate to at least 8 decimal places
      */
