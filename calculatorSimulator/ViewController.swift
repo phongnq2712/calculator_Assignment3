@@ -450,6 +450,14 @@ class ViewController: UIViewController {
             memoryAdd += Double(calculationsText)!
         break
             
+        case "m-":
+            memoryAdd -= Double(calculationsText)!
+        break
+            
+        case "mc":
+            memoryAdd = 0.0
+        break
+            
         case "+":
             if(calculationsText.suffix(1) != "+")
             {
@@ -531,14 +539,16 @@ class ViewController: UIViewController {
         break
         
         case "10^x":
-            let base = Int(calculationsText)!
-            var result = 1.0
-            if(base > 0) {
-                for _ in 1...base {
-                    result = result * 10.0
+            if(!calculationsText.isEmpty) {
+                let base = Int(calculationsText)!
+                var result = 1.0
+                if(base > 0) {
+                    for _ in 1...base {
+                        result = result * 10.0
+                    }
+                    resultLabel.text = formatResult(result: result)
+                    calculationsText = resultLabel.text!
                 }
-                resultLabel.text = formatResult(result: result)
-                calculationsText = resultLabel.text!
             }
             
         break
